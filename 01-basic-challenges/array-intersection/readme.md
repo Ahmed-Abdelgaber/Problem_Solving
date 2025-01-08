@@ -29,66 +29,49 @@ arrayIntersection([1, 2, 3, 4, 5], [5, 4, 3, 2, 1]); // should return [1, 2, 3, 
 - The input arrays can contain any number of elements
 - The input arrays can contain any positive integer
 
-### Hints
-
-- You could use a for loop to iterate through the first array and check if each element is in the second array using the `includes` method.
-- You could also take the approach of using a Set to store the elements of the first array and then iterate through the second array and check if each element is in the Set using the `has` method.
-
 ## Solutions
 
 <details>
   <summary>Click For Solution 1</summary>
 
-```js
-function arrayIntersection(arr1, arr2) {
-  const intersection = [];
+In this solution I will use the dynamic programming to store the first array in an object just to loop over it one time.
 
-  for (let i = 0; i < arr1.length; i++) {
-    if (arr2.includes(arr1[i]) && !intersection.includes(arr1[i])) {
-      intersection.push(arr1[i]);
-    }
+```ts
+const arrayIntersection = (array1: number[], array2: number[]): number[] => {
+  const objectOfArray1 = {};
+  for (let num of array1) {
+    objectOfArray1[num] = true;
   }
-
-  return intersection;
-}
+  return array2.filter(num => objectOfArray1[num]);
+};
 ```
 
 ### Explanation
 
-- Iterate through the first array
-- For each element, check if it is in the second array using the `includes` method
-- If it is, check if it is already in the intersection array using the `includes` method
-- If it is not, push it into the intersection array
-- Return the intersection array
+- Iterate through the first array and store it in an Object.
+- Filter the second array to return the elements that will exists in the first array object.
+- Return this array.
 
 </details>
 
 <details>
   <summary>Click For Solution 2</summary>
 
-In this solution, we will use a Set. A Set is a data structure that stores unique values. We will have a section on maps, sets later. If you are not familiar with sets, that is fine. You can still follow along with this solution.
+In this solution, I will use a Set. A Set is a data structure that stores unique values.
 
-```js
-function arrayIntersection(arr1, arr2) {
-  const set1 = new Set(arr1);
-  const intersection = [];
-
-  for (let num of arr2) {
-    if (set1.has(num)) {
-      intersection.push(num);
-    }
-  }
-
-  return intersection;
-}
+```ts
+const arrayIntersection = (array1: number[], array2: number[]): number[] => {
+  const set1 = new Set(array1);
+  const set2 = new Set(array2);
+  return [...set1.intersection(set2)];
+};
 ```
 
 ### Explanation
 
-- Create a new Set from the first array
-- Iterate through the second array and check if each element is in the set using the `has` method
-- If it is, push it into the intersection array
-- Return the intersection array
+- Create a new Set from the first and second arrays
+- Use the intersection function to return a new Set.
+- Destruct the returned Set into an array to return it.
 
 </details>
 
