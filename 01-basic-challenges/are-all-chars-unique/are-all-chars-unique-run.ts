@@ -1,4 +1,4 @@
-const areAllCharactersUnique = require('./are-all-chars-unique');
+import areAllCharactersUnique from './are-all-chars-unique';
 
 const result1 = areAllCharactersUnique('abcdefg');
 const result2 = areAllCharactersUnique('abcdefgA');
