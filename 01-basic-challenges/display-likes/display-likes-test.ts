@@ -1,4 +1,4 @@
-const displayLikes = require('./display-likes');
+import displayLikes from './display-likes';
 
 test('Display Likes', () => {
   expect(displayLikes([])).toEqual('no one likes this');

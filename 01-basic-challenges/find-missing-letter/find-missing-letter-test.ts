@@ -1,4 +1,4 @@
-const findMissingLetter = require('./find-missing-letter');
+import findMissingLetter from './find-missing-letter';
 
 test('Find Missing Letter', () => {
   expect(findMissingLetter(['a', 'b', 'c', 'e'])).toBe('d');

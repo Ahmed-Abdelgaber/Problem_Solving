@@ -38,43 +38,32 @@ displayLikes(['Alex', 'Jacob', 'Mark', 'Max', 'Jill']) // 'Alex, Jacob and 3 oth
 
 - The input array will only contain strings
 
-### Hints
-
 ## Solutions
 
 <details>
   <summary>Click For Solution</summary>
 
-```js
-function displayLikes(names) {
-  const length = names.length;
-
-  if (length === 0) {
-    return 'no one likes this';
-  } else if (length === 1) {
-    return `${names[0]} likes this`;
-  } else if (length === 2) {
-    return `${names[0]} and ${names[1]} like this`;
-  } else if (length === 3) {
+```ts
+const displayLikes = (names: String[]): String => {
+  if (names.length === 1) return `${names[0]} likes this`;
+  if (names.length === 2) return `${names[0]} and ${names[1]} like this`;
+  if (names.length === 3)
     return `${names[0]}, ${names[1]} and ${names[2]} like this`;
-  } else {
-    return `${names[0]}, ${names[1]} and ${length - 2} others like this`;
-  }
-}
+  if (names.length > 3)
+    return `${names[0]}, ${names[1]} and ${names.length - 2} others like this`;
+  return 'no one likes this';
+};
 ```
 
 ### Explanation
 
-This is pretty simple as it just requires a bunch of if statements. We could also use a switch statement here, but it would be a bit more verbose.
-
-- Get the length of the array and then check if it's 0, 1, 2, 3, or more. Depending on the length, we return the appropriate string.
-- If there are more than 3 names, we return the first two names, and then the length minus 2 for the number of others.
+- Some fixed cases no big deal here.
 
 </details>
 
 ### Test Cases
 
-```js
+```ts
 test('Display Likes', () => {
   expect(displayLikes([])).toEqual('no one likes this');
   expect(displayLikes(['Peter'])).toEqual('Peter likes this');
