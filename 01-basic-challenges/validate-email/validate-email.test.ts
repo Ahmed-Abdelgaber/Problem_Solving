@@ -1,4 +1,4 @@
-const validateEmail = require('./validate-email');
+import validateEmail from './validate-email';
 
 test('Valid Email Addresses', () => {
   expect(validateEmail('john@example.com')).toBe(true);
