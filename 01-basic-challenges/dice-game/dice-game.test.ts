@@ -1,4 +1,4 @@
-const diceGameSimulation = require('./dice-game');
+import diceGameSimulation from './dice-game';
 
 describe('diceGameSimulation', () => {
   test('should simulate the dice game correctly', () => {
@@ -7,7 +7,7 @@ describe('diceGameSimulation', () => {
 
     expect(simulationResults).toHaveLength(numSimulations);
 
-    simulationResults.forEach((result) => {
+    simulationResults.forEach(result => {
       const { dice1, dice2, sum, result: gameResult } = result;
 
       expect(dice1).toBeGreaterThanOrEqual(1);

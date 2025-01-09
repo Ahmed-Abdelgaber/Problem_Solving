@@ -37,69 +37,79 @@ console.log(diceGameSimulation(3));
 */
 ```
 
-### Hints
-
-- You can use the `Math.random()` function to simulate rolling a die. It returns a random number between 0 (inclusive) and 1 (exclusive).
-
 ## Solution
 
 <details>
   <summary>Click For Solution</summary>
 
-```js
-function rollDice() {
-  return Math.floor(Math.random() * 6) + 1;
-}
+```ts
+type Result = {
+  dice1: number;
+  dice2: number;
+  sum: number;
+  result: string;
+};
 
-function diceGameSimulation(numSimulations) {
-  const results = [];
+const rollDice = (): number => Math.floor(Math.random() * 6) + 1;
 
+const getResult = (sum: number): string => {
+  if (sum === 7 || sum === 11) return 'win';
+  if (sum === 2 || sum === 3 || sum === 12) return 'lose';
+  return 'roll again';
+};
+
+const diceGameSimulation = (numSimulations: number): Result[] => {
+  const results: Result[] = [];
+  let dice1: number, dice2: number, sum: number, result: string;
   for (let i = 0; i < numSimulations; i++) {
-    const dice1 = rollDice();
-    const dice2 = rollDice();
-    const sum = dice1 + dice2;
-
-    let result = '';
-    if (sum === 7 || sum === 11) {
-      result = 'win';
-    } else if (sum === 2 || sum === 3 || sum === 12) {
-      result = 'lose';
-    } else {
-      result = 'roll again';
-    }
-
+    dice1 = rollDice();
+    dice2 = rollDice();
+    sum = dice1 + dice2;
+    result = getResult(sum);
     results.push({ dice1, dice2, sum, result });
   }
-
   return results;
-}
-
-module.exports = diceGameSimulation;
+};
 ```
 
 ### Explanation
 
 - The `rollDice` function simulates rolling a single die. It uses `Math.random()` to generate a random decimal between 0 (inclusive) and 1 (exclusive), multiplies it by 6, rounds down, and adds 1 to get a random number between 1 and 6.
 - The `diceGameSimulation` function simulates the dice game for the specified number of simulations. It uses the `rollDice` function to generate random dice values and calculates the sum of the two dice.
-- Depending on the sum, the `result` property is determined according to the game rules.
+- Depending on the sum, the `getResult` function returns the result.
 - The results of each simulation are stored in an array of objects.
-- The module exports the `diceGameSimulation` function to make it accessible in other files.
 
 </details>
 
 ### Test Cases
 
-```js
-test('Dice Game Simulation', () => {
-  const numSimulations = 5;
-  const simulationResults = diceGameSimulation(numSimulations);
+```ts
+describe('diceGameSimulation', () => {
+  test('should simulate the dice game correctly', () => {
+    const numSimulations = 100;
+    const simulationResults = diceGameSimulation(numSimulations);
 
-  simulationResults.forEach((result) => {
-    console.log(`Simulation Result: ${result.finalResult}`);
-    result.rolls.forEach((roll) => {
-      console.log(
-        `  Dice 1: ${roll.dice1}, Dice 2: ${roll.dice2}, Sum: ${roll.sum}, Result: ${roll.result}`
-      );
+    expect(simulationResults).toHaveLength(numSimulations);
+
+    simulationResults.forEach(result => {
+      const { dice1, dice2, sum, result: gameResult } = result;
+
+      expect(dice1).toBeGreaterThanOrEqual(1);
+      expect(dice1).toBeLessThanOrEqual(6);
+
+      expect(dice2).toBeGreaterThanOrEqual(1);
+      expect(dice2).toBeLessThanOrEqual(6);
+
+      expect(sum).toBeGreaterThanOrEqual(2);
+      expect(sum).toBeLessThanOrEqual(12);
+
+      if (sum === 7 || sum === 11) {
+        expect(gameResult).toBe('win');
+      } else if (sum === 2 || sum === 3 || sum === 12) {
+        expect(gameResult).toBe('lose');
+      } else {
+        expect(gameResult).toBe('roll again');
+      }
     });
   });
 });
