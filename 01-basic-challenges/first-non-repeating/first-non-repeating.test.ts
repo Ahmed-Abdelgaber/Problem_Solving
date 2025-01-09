@@ -1,4 +1,4 @@
-const findFirstNonRepeatingCharacter = require('./first-non-repeating');
+import findFirstNonRepeatingCharacter from './first-non-repeating';
 
 test('Find First Non-Repeating Character', () => {
   expect(findFirstNonRepeatingCharacter('aabccdeff')).toBe('b');

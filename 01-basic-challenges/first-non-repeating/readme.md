@@ -1,7 +1,5 @@
 # Challenge: Find First Non-Repeating Character
 
-This challenge is similar to the last. So if you understood that, you should be able to get this one on your own.
-
 ## Instructions
 
 Write a function called `findFirstNonRepeatingCharacter` that takes in a string and returns the first non-repeating character in the string.
@@ -31,68 +29,24 @@ findFirstNonRepeatingCharacter('abcdef'); // should return 'a'
 
 - The input string will only contain lowercase letters and spaces
 
-### Hints
-
-- You can use an object or a map to keep track of the number of times each character appears in the string.
-- You can iterate through the string and check if the current character has only appeared once.
-
-## Solutions
+## Solution
 
 <details>
-  <summary>Click For Solution 1 </summary>
-
-Using a `Map`:
-
-```js
-function findFirstNonRepeatingCharacter(str) {
-  const charCount = new Map();
-
-  for (const char of str) {
-    charCount.set(char, (charCount.get(char) || 0) + 1);
-  }
-
-  for (const char of str) {
-    if (charCount.get(char) === 1) {
-      return char;
-    }
-  }
-
-  return null;
-}
-```
-
-### Explanation
-
--I nitialize a map to keep track of the number of times each character appears in the string.
-
-- Iterate through the string and add each character to the map. If the character is already in the map, we increment its count by 1. If it isn't, we set its count to 1.
-
-- Iterate through the string again and check the map to see if the current character has a count of 1. If it does, we return it because it's the first non-repeating character.
-- If we make it through the entire string without returning a character, we return null because there are no non-repeating characters.
-
-</details>
-
-<details>
-  <summary>Click For Solution 2 </summary>
+  <summary>Click For Solution</summary>
 
 Using an object:
 
-```js
-function findFirstNonRepeatingCharacter(str) {
-  const charCount = {};
-
-  for (const char of str) {
-    charCount[char] = (charCount[char] || 0) + 1;
+```ts
+const findFirstNonRepeatingCharacter = (str: string): string | null => {
+  const charsFrequencyObject: { [key: string]: number } = {};
+  for (let char of str) {
+    charsFrequencyObject[char] = charsFrequencyObject[char] + 1 || 1;
   }
-
-  for (const char of str) {
-    if (charCount[char] === 1) {
-      return char;
-    }
+  for (let char of str) {
+    if (charsFrequencyObject[char] === 1) return char;
   }
-
   return null;
-}
+};
 ```
 
 ### Explanation
@@ -106,7 +60,7 @@ function findFirstNonRepeatingCharacter(str) {
 
 ### Test Cases
 
-```js
+```ts
 test('Find First Non-Repeating Character', () => {
   expect(findFirstNonRepeatingCharacter('aabccdeff')).toBe('b');
   expect(findFirstNonRepeatingCharacter('aabbcc')).toBe(null);
