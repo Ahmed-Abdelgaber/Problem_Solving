@@ -28,24 +28,19 @@ formatPhoneNumber([3, 4, 5, 5, 0, 1, 2, 5, 2, 7]); // => "(345) 501-2527"
 - The input array will always have 10 numbers
 - The numbers can be any integer from 0 to 9
 
-### Hints
-
-- You can use the `Array.join` method to concatenate the numbers in the array.
-- You can use the `Array.slice` method to get a subset of the array.
-
-## Solutions
+## Solution
 
 <details>
-  <summary>Click For Solution 1</summary>
+  <summary>Click For Solution</summary>
 
 ```js
-function formatPhoneNumber(numbers) {
-  const areaCode = numbers.slice(0, 3).join('');
-  const prefix = numbers.slice(3, 6).join('');
-  const lineNumber = numbers.slice(6).join('');
+const formatPhoneNumber = (nums: number[]): string => {
+  const first = nums.slice(0, 3).join('');
+  const second = nums.slice(3, 6).join('');
+  const third = nums.slice(6, 10).join('');
 
-  return `(${areaCode}) ${prefix}-${lineNumber}`;
-}
+  return `(${first}) ${second}-${third}`;
+};
 ```
 
 ### Explanation
@@ -53,44 +48,6 @@ function formatPhoneNumber(numbers) {
 - Create 3 variables to store the area code, prefix, and line number.
 - Use the `Array.slice` method to get a subset of the array.
 - Use the `Array.join` method to concatenate the numbers in the array.
-
-</details>
-
-<details>
-  <summary>Click For Solution 2</summary>
-
-```js
-function formatPhoneNumber(numbers) {
-  const formatted = numbers.join('');
-  return `(${formatted.substring(0, 3)}) ${formatted.substring(
-    3,
-    6
-  )}-${formatted.substring(6)}`;
-}
-```
-
-### Explanation
-
-- Created a variable to store the numbers in the array concatenated together.
-- Use the `String.substring` method to get a subset of the string.
-
-</details>
-
-<details>
-  <summary>Click For Solution 3</summary>
-
-One line arrow function:
-
-```js
-const formatPhoneNumber = (numbers) =>
-  `(${numbers.slice(0, 3).join('')}) ${numbers.slice(3, 6).join('')}-${numbers
-    .slice(6)
-    .join('')}`;
-```
-
-### Explanation
-
-This is similar to the second solution, but we used an arrow function and Array.slice method chaining.
 
 </details>
 
