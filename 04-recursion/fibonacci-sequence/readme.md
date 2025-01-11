@@ -52,24 +52,14 @@ fibonacci(10); // 55
 
 - The input number will always be a positive integer
 
-### Hints
-
-- You know that the formula is `F(n) = F(n-1) + F(n-2)`. ` F`` is the function, and  `n` is the number in the sequence.
-- You know that the first two numbers in the sequence are `0` and `1`. So if the number is less than 2, you can return the number.
-
 ## Solutions
 
 <details>
   <summary>Click For Solution</summary>
 
-```js
-function fibonacci(num) {
-  // Base case
-  if (num < 2) return num;
-
-  // Recursive case
-  return fibonacci(num - 1) + fibonacci(num - 2);
-}
+```typescript
+const fibonacci = (num: number): number =>
+  num < 2 ? num : fibonacci(num - 1) + fibonacci(num - 2);
 ```
 
 ### Explanation
@@ -95,13 +85,6 @@ Let's look at this step by step using an example where input num is 5:
 - `fibonacci(5)` returns `fibonacci(4) + fibonacci(3)` = 3 + 2 = `5`.
 
 So, `fibonacci(5)` returns `5`, which is the fifth number in the Fibonacci sequence.
-
-We could make this a one liner by using the ternary operator:
-
-```js
-const fibonacci = (num) =>
-  num < 2 ? num : fibonacci(num - 1) + fibonacci(num - 2);
-```
 
 </details>
 

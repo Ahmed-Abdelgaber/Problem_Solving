@@ -1,4 +1,4 @@
-const power = require('./power');
+import power from './power';
 
 const result = power(2, 4);
 

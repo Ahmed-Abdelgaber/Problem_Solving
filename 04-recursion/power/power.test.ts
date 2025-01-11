@@ -1,4 +1,4 @@
-const power = require('./power');
+import power from './power';
 
 test('Calculate Power of Base to Exponent', () => {
   expect(power(2, 3)).toEqual(8);
