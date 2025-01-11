@@ -1,4 +1,4 @@
-const numberRange = require('./number-range');
+import numberRange from './number-range';
 
 test('Calculating the range of numbers', () => {
   expect(numberRange(1, 5)).toEqual([1, 2, 3, 4, 5]);

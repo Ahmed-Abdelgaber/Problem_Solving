@@ -27,44 +27,33 @@ permutations('dog'); // ['dog', 'dgo', 'odg', 'ogd', 'gdo', 'god']
 - The input string will only contain lowercase letters
 - The input string will not contain any duplicate characters
 
-### Hints
-
-- Think about how you can break down the problem of generating permutations using recursion.
-- Consider what the base case for your recursion should be.
-- You can use the `slice` method to remove a character from a string.
-- you can use a for loop to iterate over the characters in the string and another for loop to iterate over the sub-permutations.
-
 ## Solutions
 
 <details>
   <summary>Click For Solution</summary>
 
 ```js
-function permutations(str) {
-  const result = [];
-
-  if (str.length === 0) {
-    result.push('');
-    return result;
-  }
+const permutations = (str: string): string[] => {
+  if (str.length <= 1) return [str];
+  const result: string[] = [];
 
   for (let i = 0; i < str.length; i++) {
-    const firstChar = str[i];
+    const currentChar = str[i];
     const restOfString = str.slice(0, i) + str.slice(i + 1);
-    const subPermutations = permutations(restOfString);
+    const innerPermutations = permutations(restOfString);
 
-    for (let j = 0; j < subPermutations.length; j++) {
-      result.push(firstChar + subPermutations[j]);
+    for (const permutation of innerPermutations) {
+      result.push(currentChar + permutation);
     }
   }
 
   return result;
-}
+};
 ```
 
 ### Explanation
 
-- Intialize an empty array result to store the permutations.
+- Initialize an empty array result to store the permutations.
 - The base case is checked at the beginning. If the input string str is empty (length is 0), it means there are no characters to permute. In this case, an empty string is added to the result array, representing the only permutation for an empty string. The function then returns the result array.
 - If the input string is not empty, the function proceeds to generate permutations using recursion and a loop.
 - The outer loop iterates through each character of the input string str.

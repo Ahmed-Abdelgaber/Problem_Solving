@@ -1,4 +1,4 @@
-const permutations = require('./permutations');
+import permutations from './permutations';
 
 test('Permutations', () => {
   expect(permutations('abc')).toEqual([

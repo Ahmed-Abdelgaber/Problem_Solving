@@ -32,43 +32,65 @@ flattenArray([1, [2, [3, [4, [5]]]]]); // should return [1, 2, 3, 4, 5]
 - The input array can contain nested arrays of any depth
 - The input array can contain any number of nested arrays
 
-### Hints
-
-- You can use recursion to traverse the nested arrays and flatten them.
-- If the current element is an array, you can recursively call the `flattenArray` function on that element to flatten it further.
-
 ## Solutions
 
 <details>
-  <summary>Click For Solution</summary>
+  <summary>Click For Solution 1</summary>
 
 ```js
-function flattenArray(arr) {
-  let result = [];
+type NestedArray = number | NestedArray[];
 
-  for (const item of arr) {
-    if (Array.isArray(item)) {
-      result = result.concat(flattenArray(item));
+const flattenArray = (nums: NestedArray[]): number[] => {
+  const result: number[] = [];
+
+  for (const el of nums) {
+    if (Array.isArray(el)) {
+      result.push(...flattenArray(el));
     } else {
-      result.push(item);
+      result.push(el);
     }
   }
 
   return result;
-}
+};
 ```
 
 ### Explanation
 
 - Create a variable `result` to store the flattened array.
 - Loop through the input array using a `for...of` loop.
-- If the current element is an array, recursively call the `flattenArray` function on that element to flatten it further, and then concatenate the result to the `result` array.
+- If the current element is an array, recursively call the `flattenArray` function on that element to flatten it further, and then destruct the result to the `result` array.
 - If the current element is not an array, push it to the `result` array.
 - Return the `result` array.
 
 The base case is implicitly handled within the loop structure. As the loop iterates through each element of the input array arr, the recursion eventually reaches the point where there are no more elements left to process.
 
 When the input array arr is empty, the loop will not execute, and the function will directly return the empty result array.
+
+</details>
+
+<details>
+  <summary>Click For Solution 2</summary>
+
+```js
+type NestedArray = number | NestedArray[];
+
+// Using Array.prototype.reduce
+const flattenArray = (nums: NestedArray[]): number[] => {
+  return nums.reduce<number[]>((acc, el) => {
+    if (Array.isArray(el)) {
+      acc.push(...flattenArray(el));
+    } else {
+      acc.push(el);
+    }
+    return acc;
+  }, []);
+};
+```
+
+### Explanation
+
+- Same logic as before but using `Array.prototype.reduce` to loop over the nums array.
 
 </details>
 

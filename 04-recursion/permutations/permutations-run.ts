@@ -1,4 +1,4 @@
-const permutations = require('./permutations');
+import permutations from './permutations';
 
 const result = permutations('abc');
 
